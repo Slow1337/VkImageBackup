@@ -1,4 +1,5 @@
 import requests
+from tqdm import tqdm
 
 
 class YaActor():
@@ -30,7 +31,7 @@ class YaActor():
             'Authorization': f'OAuth {self.token}'
         }
         overall_response = []
-        for name in some_dict:
+        for name in tqdm(some_dict, desc='Отправка фото на я.диск'):
             path = f'{self.path}/{name}.jpg'
             photo_link = some_dict[name]
             params = {
