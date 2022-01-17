@@ -3,28 +3,12 @@ from time import ctime
 
 
 class VkActor():
-    def __init__(self, token: str, username: str, album_id, amount=5):
+    def __init__(self, token: str, user_id: str, album_id, amount=5):
         self.token = token
-        self.username = username
         self.album_id = album_id
         self.amount = amount
         self.uri = 'https://api.vk.com/method/'
-        self.user_id = ''
-
-    def get_user_id(self):
-        """Получить id по короткому имени и записать его в аттрибут объекта"""
-        method = 'utils.resolveScreenName'
-        params = {
-            'screen_name': self.username,
-            'access_token': self.token,
-            'v': '5.131'
-        }
-        response = requests.get(url=f'{self.uri}{method}', params=params)
-        response = response.json()
-        self.user_id = str(response['response']['object_id'])
-        # return response
-        # пока возврат вроде не нужен, но может быть нужен потом
-        # для загрузки фото из сообществ вк, там id должно идти с - в начале
+        self.user_id = user_id
 
     def get_photos(self):
         """Получает ссылки на фотографии, по аттрибуту user_id,после чего
